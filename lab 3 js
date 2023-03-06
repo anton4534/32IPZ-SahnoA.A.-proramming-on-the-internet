@@ -1,0 +1,200 @@
+let randomNumber = Math.random(); 
+console.log(randomNumber);
+
+
+// числовий тип
+var num = 42;
+console.log(num); 
+
+// рядковий тип
+var str = "Привіт, світ!";
+console.log(str); 
+
+// булевий тип
+var bool = true;
+console.log(bool);
+
+// тип null
+var n = null;
+console.log(n); 
+
+// тип undefined
+var u;
+console.log(u); 
+
+// символьний тип (з'явився в ES6)
+var sym = Symbol('foo');
+console.log(sym); 
+
+
+var num1 = 5;
+var num2 = 10;
+var sum = num1 + num2;
+console.log(sum);
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Мій сайт</title>
+  </head>
+  <body>
+    <h1>Мій сайт</h1>
+    <p>Ласкаво просимо!</p>
+
+    <script src="script.js"></script>
+  </body>
+</html>
+
+// показати повідомлення з alert()
+alert("Привіт, світ!");
+
+// запитати користувача про їхнє ім'я
+var name = prompt("Будь ласка, введіть своє ім'я", "ім'я");
+
+// показати підтвердження
+var result = confirm("Чи бажаєте ви продовжити?");
+if (result === true) {
+  alert("Ви натиснули OK");
+} else {
+  alert("Ви натиснули відміну");
+}
+
+
+var age = prompt("Будь ласка, введіть свій вік", "18");
+alert("Ваш вік " + age);
+
+
+var quantity = prompt("Введіть кількість товару", "1");
+var price = prompt("Введіть ціну за одиницю товару", "0");
+var totalPrice = quantity * price;
+alert("Сума покупки: " + totalPrice);
+
+
+var number = prompt("Введіть число", "0");
+
+if (number < 0) {
+  alert("Введене число від'ємне");
+} else if (number == 0) {
+  alert("Введене число дорівнює нулю");
+} else {
+  alert("Введене число додатнє");
+}
+
+
+var dayNumber = prompt("Введіть номер дня тижня (1-7)", "1");
+
+var dayName;
+switch (dayNumber) {
+  case "1":
+    dayName = "Понеділок";
+    break;
+  case "2":
+    dayName = "Вівторок";
+    break;
+  case "3":
+    dayName = "Середа";
+    break;
+  case "4":
+    dayName = "Четвер";
+    break;
+  case "5":
+    dayName = "П'ятниця";
+    break;
+  case "6":
+    dayName = "Субота";
+    break;
+  case "7":
+    dayName = "Неділя";
+    break;
+  default:
+    dayName = "Невідомий день";
+    break;
+}
+
+alert("Ваш день тижня: " + dayName);
+
+
+var table = "<table>";
+
+for (var i = 1; i <= 10; i++) {
+  table += "<tr><td>6 x " + i + "</td><td>=</td><td>" + 6*i + "</td></tr>";
+}
+
+table += "</table>";
+
+document.write(table);
+
+
+var n = [2, -5, 3, 1, -4];
+var thirdSquare = n[2] * n[2]; // квадрат третього числа
+var sumFirstLast = n[0] + n[n.length - 1]; // сума першого та останнього елементів
+var negativeSquaresSum = 0; // сума квадратів від'ємних елементів
+
+for (var i = 0; i < n.length; i++) {
+  if (n[i] < 0) {
+    negativeSquaresSum += n[i] * n[i]; // додати квадрат від'ємного числа до суми
+  }
+}
+
+console.log("Квадрат третього числа: " + thirdSquare);
+console.log("Сума першого та останнього елементів: " + sumFirstLast);
+console.log("Сума квадратів від'ємних елементів: " + negativeSquaresSum);
+
+
+// Створення об'єкту машина
+let car = {
+  ownerName: "John",
+  modelName: "Toyota",
+  engineVolume: 1.6
+};
+
+// Створення масиву з об'єктами
+let cars = [
+  { ownerName: "Bob", modelName: "Honda", engineVolume: 2.0 },
+  { ownerName: "Alice", modelName: "Mazda", engineVolume: 1.8 },
+  { ownerName: "Charlie", modelName: "Ford", engineVolume: 1.5 },
+  { ownerName: "David", modelName: "Nissan", engineVolume: 1.6 }
+];
+
+// Пошук машини з мінімальним об'ємом двигуна
+let minEngineVolumeCar = cars[0];
+for(let i = 1; i < cars.length; i++) {
+  if(cars[i].engineVolume < minEngineVolumeCar.engineVolume) {
+    minEngineVolumeCar = cars[i];
+  }
+}
+
+// Виведення результату
+console.log("Машина з мінімальним об'ємом двигуна:");
+console.log("Власник:", minEngineVolumeCar.ownerName);
+console.log("Модель:", minEngineVolumeCar.modelName);
+console.log("Об'єм двигуна:", minEngineVolumeCar.engineVolume);
+
+
+// Запитуємо у користувача 4 числа
+let a = parseInt(prompt("Введіть число a:"));
+let b = parseInt(prompt("Введіть число b:"));
+let c = parseInt(prompt("Введіть число c:"));
+let d = parseInt(prompt("Введіть число d:"));
+
+// Знаходимо мінімальні значення між a та b, та між c та d
+let minAB = Math.min(a, b);
+let minCD = Math.min(c, d);
+
+// Знаходимо максимальне значення між minAB та minCD
+let result = Math.max(minAB, minCD);
+
+// Виводимо результат
+console.log(`max{min(${a}, ${b}), min(${c}, ${d})} = ${result}`);
+
+
+let word = prompt("Введіть слово:");
+let length = word.length;
+let reverseWord = "";
+
+for (let i = length - 1; i >= 0; i--) {
+  reverseWord += word[i];
+}
+
+alert("Довжина слова: " + length + "\nСлово у зворотному порядку: " + reverseWord);
