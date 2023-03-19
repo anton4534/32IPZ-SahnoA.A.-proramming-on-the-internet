@@ -1,0 +1,220 @@
+// Створення масиву persons та додавання 5 об'єктів до нього
+const persons = [
+  { name: 'John', age: 23, city: 'Boston' },
+  { name: 'Jane', age: 29, city: 'New York' },
+  { name: 'David', age: 32, city: 'San Francisco' },
+  { name: 'Emily', age: 27, city: 'Los Angeles' },
+  { name: 'Michael', age: 25, city: 'Chicago' }
+];
+
+// Встановлення властивостей масиву persons
+persons.groupName = 'A';
+persons.teacher = 'Joan Doe';
+persons.year = '2023';
+
+// Виведення елементів масиву та властивостей масиву з допомогою циклу for...of
+console.log('Елементи масиву persons:');
+for (const person of persons) {
+  console.log(person);
+}
+
+console.log('Властивості масиву persons:');
+for (const propertyName in persons) {
+  console.log(`${propertyName}: ${persons[propertyName]}`);
+}
+
+console.log('Індекси масиву persons:');
+for (const index in persons) {
+  console.log(index);
+}
+
+console.log('Елементи масиву persons з допомогою циклу for:');
+for (let i = 0; i < persons.length; i++) {
+  console.log(persons[i]);
+}
+
+Результат виконання цього коду буде наступним:
+
+Елементи масиву persons:
+{ name: 'John', age: 23, city: 'Boston' }
+{ name: 'Jane', age: 29, city: 'New York' }
+{ name: 'David', age: 32, city: 'San Francisco' }
+{ name: 'Emily', age: 27, city: 'Los Angeles' }
+{ name: 'Michael', age: 25, city: 'Chicago' }
+Властивості масиву persons:
+0: [object Object]
+1: [object Object]
+2: [object Object]
+3: [object Object]
+4: [object Object]
+groupName: A
+teacher: Joan Doe
+year: 2023
+Індекси масиву persons:
+0
+1
+2
+3
+4
+Елементи масиву persons з допомогою циклу for:
+{ name: 'John', age: 23, city: 'Boston' }
+{ name: 'Jane', age: 29, city: 'New York' }
+{ name: 'David', age: 32, city: 'San Francisco' }
+{ name: 'Emily', age: 27, city: 'Los Angeles' }
+{ name: 'Michael', age: 25, city: 'Chicago' }
+
+
+
+const defaults = { mode: 'test', debugLevel: 'error', logFolder: 'root' };
+const userSettings = { mode: 'production', debugLevel: 'trace' };
+
+function mergeSettings(defaults, userSettings) {
+  return Object.assign({}, defaults, userSettings);
+}
+
+const mergedSettings = mergeSettings(defaults, userSettings);
+console.log(mergedSettings);
+
+Результат виконання цього коду буде наступним:
+{ mode: 'production', debugLevel: 'trace', logFolder: 'root' }
+
+
+
+const person = { name: 'John', age: 23, city: 'Boston',
+  get birthYear() {
+    const currentYear = new Date().getFullYear();
+    return currentYear - this.age;
+  }
+};
+
+console.log(person.birthYear); // виведе 2000
+
+
+
+const arr1 = [1, 2, 3];
+const arr2 = [4, 5, 6];
+const arr3 = arr1.concat(arr2);
+console.log(arr3); // виведе [1, 2, 3, 4, 5, 6]
+
+
+
+const persons = [
+  { name: 'John', age: 23, city: 'Boston' },
+  { name: 'Jane', age: 30, city: 'New York' },
+  { name: 'Bob', age: 18, city: 'San Francisco' },
+  { name: 'Alice', age: 27, city: 'Chicago' },
+  { name: 'Tom', age: 21, city: 'Seattle' },
+];
+
+function getPersonTexts(persons) {
+  const result = [];
+
+  for (let i = 0; i < persons.length; i++) {
+    const person = persons[i];
+    const text = `${person.name} from ${person.city} born in ${2023 - person.age}`;
+    result.push(text);
+  }
+
+  return result;
+}
+
+const personTexts = getPersonTexts(persons);
+console.log(personTexts); // виведе ["John from Boston born in 2000", "Jane from New York born in 1993", "Bob from San Francisco born in 2005", "Alice from Chicago born in 1996", "Tom from Seattle born in 2002"]
+
+
+
+let olderPersons = persons.filter(function(person) {
+  return person.age > 20;
+});
+console.log(olderPersons);
+
+
+
+const person = { name: 'John', age: 23, city: 'Boston' };
+const { name, city } = person;
+console.log(name); // 'John'
+console.log(city); // 'Boston'
+
+
+
+// масив persons для тестування
+const persons = [
+  { name: 'John', age: 23, city: 'Boston', yearOfBirth: 1999 },
+  { name: 'Kate', age: 30, city: 'New York', yearOfBirth: 1992 },
+  { name: 'Mike', age: 28, city: 'San Francisco', yearOfBirth: 1994 },
+];
+
+function getUserData(name) {
+  const user = persons.find(person => person.name === name);
+  if (!user) {
+    throw new Error('Unable to find user');
+  }
+  return user;
+}
+
+async function showUserInfo(name) {
+  console.log('Loading');
+  try {
+    const user = await getUserData(name);
+    console.log(`Name: ${user.name}, Age: ${user.age}, City: ${user.city}, Year of birth: ${user.yearOfBirth}`);
+  } catch (error) {
+    console.log(error.message);
+  } finally {
+    console.log('Loading finished');
+  }
+}
+
+// Приклад виклику функції showUserInfo
+showUserInfo('Kate');
+
+
+
+function textToLetters(text) {
+  return Array.from(text);
+}
+const text = 'Hello, world!';
+const letters = textToLetters(text);
+console.log(letters); // ["H", "e", "l", "l", "o", ",", " ", "w", "o", "r", "l", "d", "!"]
+
+
+
+function reverseWord(word) {
+  let reversed = '';
+  for (let i = word.length - 1; i >= 0; i--) {
+    reversed += word[i];
+  }
+  return reversed;
+}
+console.log(reverseWord('hello')); // 'olleh'
+console.log(reverseWord('world')); // 'dlrow'
+
+
+
+function isJSFile(filename) {
+  return /\.js$/.test(filename);
+}
+
+
+
+function sentenceToWords(sentence) {
+  return sentence.split(' ');
+}
+
+
+
+function replaceWord(text, oldWord, newWord) {
+  const words = text.split(' '); // розбиваємо на масив слів
+  const newWords = [];
+
+  for (let i = 0; i < words.length; i++) {
+    if (words[i] === oldWord) {
+      newWords.push(newWord);
+    } else {
+      newWords.push(words[i]);
+    }
+  }
+
+  const newText = newWords.join(' '); // об'єднуємо масив слів знову в текстовий фрагмент
+  return newText;
+}
+
