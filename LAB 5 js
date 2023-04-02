@@ -1,0 +1,234 @@
+function average(...args) {
+  const sum = args.reduce((acc, val) => acc + val, 0);
+  return sum / args.length;
+}
+
+console.log(average(1, 2, 3)); // 2
+console.log(average(4, 6, 10, 12)); // 8
+console.log(average(2)); // 2
+console.log(average()); // NaN
+
+
+
+function values(f, low, high) {
+  const result = [];
+  for (let i = low; i <= high; i++) {
+    result.push(f(i));
+  }
+  return result;
+}
+
+function square(x) {
+  return x * x;
+}
+
+const result = values(square, 1, 5);
+console.log(result); // [1, 4, 9, 16, 25]
+
+
+
+function callWithContext(context, callback) {
+  callback.call(context);
+}
+
+const person = {
+  name: "John",
+  age: 30,
+};
+
+function birthdayGreeting() {
+  const today = new Date();
+  console.log(`Today is ${today}! Happy birthday ${this.name}.`);
+}
+
+callWithContext(person, birthdayGreeting);
+
+
+
+function createCounter() {
+  let value = 0;
+  
+  return {
+    increment: function() {
+      value++;
+    },
+    getValue: function() {
+      return value;
+    }
+  };
+}
+
+const counter = createCounter();
+
+counter.increment();
+counter.increment();
+
+console.log(counter.getValue()); // 2
+
+
+
+function getGreeting() {
+  let lastCalledName = null;
+  let cachedGreeting = null;
+
+  return function(name) {
+    if (name === lastCalledName) {
+      console.log("Returning cached greeting...");
+      return cachedGreeting;
+    } else {
+      console.log("Generating new greeting...");
+      lastCalledName = name;
+      cachedGreeting = `Hello ${name}`;
+      return cachedGreeting;
+    }
+  };
+}
+
+const greet = getGreeting();
+
+console.log(greet("John")); // Generating new greeting... Hello John
+console.log(greet("Mary")); // Generating new greeting... Hello Mary
+console.log(greet("John")); // Returning cached greeting... Hello John
+
+
+
+function createAdder(num1) {
+  return function(num2) {
+    return num1 + num2;
+  };
+}
+
+const addFive = createAdder(5);
+
+console.log(addFive(3)); // 8
+console.log(addFive(7)); // 12
+console.log(addFive(0)); // 5
+
+
+
+function createTextFinder(texts) {
+  return function(searchText) {
+    return texts.includes(searchText);
+  };
+}
+
+const words = ["apple", "banana", "cherry"];
+const hasBanana = createTextFinder(words);
+
+console.log(hasBanana("banana")); // true
+console.log(hasBanana("orange")); // false
+
+
+
+const capitalizeProperty = (arr, prop) =>
+  arr.map(obj => ({
+    ...obj,
+    [prop]: obj[prop].charAt(0).toUpperCase() + obj[prop].slice(1)
+  }));
+
+const people = [
+  { name: "John", age: 25 },
+  { name: "Jane", age: 30 },
+  { name: "Bob", age: 40 }
+];
+
+const peopleWithCapitalizedNames = capitalizeProperty(people, "name");
+
+console.log(peopleWithCapitalizedNames);
+
+
+
+// Приклад використання функції call
+const person = {
+  firstName: "John",
+  lastName: "Doe",
+  fullName: function() {
+    return this.firstName + " " + this.lastName;
+  }
+};
+
+const greeting = function(message) {
+  console.log(message + " " + this.fullName());
+};
+
+greeting.call(person, "Hello"); // Виведе "Hello John Doe"
+
+// Приклад використання функції apply
+const numbers = [1, 2, 3, 4, 5];
+
+const sum = function() {
+  return Array.prototype.reduce.call(arguments, function(a, b) {
+    return a + b;
+  });
+};
+
+console.log(sum.apply(null, numbers)); // Виведе 15
+
+// Приклад використання функції bind
+const multiply = function(x, y) {
+  return x * y;
+};
+
+const multiplyByTwo = multiply.bind(null, 2);
+
+console.log(multiplyByTwo(5)); // Виведе 10
+console.log(multiplyByTwo(10)); // Виведе 20
+
+
+
+function logCallback(callback) {
+  return function() {
+    console.log(`Function name: ${callback.name}`);
+    console.log(`Arguments: ${JSON.stringify(arguments)}`);
+    console.log(`Time: ${new Date().toLocaleString()}`);
+    callback.apply(null, arguments);
+  };
+}
+
+function greet(name) {
+  console.log(`Hello, ${name}!`);
+}
+
+const loggedGreet = logCallback(greet);
+
+loggedGreet("John"); // Виведе інформацію про виклик та викличе функцію greet("John")
+
+
+
+function cacheLastCall(func) {
+  let lastArgs = null;
+  let lastResult = null;
+  let lastCallTime = null;
+
+  return function(...args) {
+    const currentTime = new Date().getTime();
+
+    if (
+      lastArgs !== null &&
+      args.length === lastArgs.length &&
+      args.every((arg, i) => arg === lastArgs[i]) &&
+      currentTime - lastCallTime < 10000
+    ) {
+      console.log("Returning cached result...");
+      return lastResult;
+    }
+
+    lastArgs = args;
+    lastResult = func(...args);
+    lastCallTime = currentTime;
+
+    return lastResult;
+  };
+}
+
+function add(a, b) {
+  console.log("Computing sum...");
+  return a + b;
+}
+
+const cachedAdd = cacheLastCall(add);
+
+console.log(cachedAdd(1, 2)); // Виведе "Computing sum..." та 3
+console.log(cachedAdd(1, 2)); // Виведе "Returning cached result..." та 3
+console.log(cachedAdd(3, 4)); // Виведе "Computing sum..." та 7
+console.log(cachedAdd(1, 2)); // Виведе "Returning cached result..." та 3
