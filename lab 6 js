@@ -1,0 +1,278 @@
+function Car(brand, model, year) {
+this.brand = brand;
+this.model = model;
+this.year = year;
+}
+
+// Створення екземпляру автомобіля
+let myCar = new Car("Toyota", "Camry", 2021);
+
+// Виведення властивостей автомобіля
+console.log("Марка: " + myCar.brand); // Виведе "Марка: Toyota"
+console.log("Модель: " + myCar.model); // Виведе "Модель: Camry"
+console.log("Рік випуску: " + myCar.year); // Виведе "Рік випуску: 2021"
+
+// З використанням синтаксису класс
+class Car {
+constructor(brand, model, year) {
+this.brand = brand;
+this.model = model;
+this.year = year;
+}
+}
+
+// Створення екземпляру автомобіля
+let myCar = new Car("Toyota", "Camry", 2021);
+
+// Виведення властивостей автомобіля
+console.log("Марка: " + myCar.brand); // Виведе "Марка: Toyota"
+console.log("Модель: " + myCar.model); // Виведе "Модель: Camry"
+console.log("Рік випуску: " + myCar.year); // Виведе "Рік випуску: 2021"
+
+
+// Об'єкт-прототип з методом getAge
+let carPrototype = {
+getAge: function() {
+let currentYear = new Date().getFullYear();
+return currentYear - this.year;
+}
+};
+
+// Створення екземплярів автомобіля на основі прототипу
+let myCar = Object.create(carPrototype);
+myCar.brand = "Toyota";
+myCar.model = "Camry";
+myCar.year = 2021;
+
+let yourCar = Object.create(carPrototype);
+yourCar.brand = "Honda";
+yourCar.model = "Civic";
+yourCar.year = 2019;
+
+// Виведення віку автомобілів
+console.log("Мій автомобіль має " + myCar.getAge() + " років.");
+console.log("Твій автомобіль має " + yourCar.getAge() + " років.");
+
+
+
+// Функція-конструктор для класу "Person"
+function Person(firstName, lastName, birthYear) {
+this.firstName = firstName;
+this.lastName = lastName;
+this.birthYear = birthYear;
+
+// Метод для отримання повного імені особи
+this.getFullName = function() {
+return this.firstName + " " + this.lastName;
+}
+
+// Метод для отримання віку особи
+this.getAge = function() {
+let currentYear = new Date().getFullYear();
+return currentYear - this.birthYear;
+}
+}
+
+
+
+function compareObjects(obj1, obj2) {
+  if (obj1.constructor === obj2.constructor) {
+    console.log(`Об'єкти належать до класу ${obj1.constructor.name}.`);
+  } else {
+    console.log(`Об'єкти належать до різних класів (${obj1.constructor.name} та ${obj2.constructor.name}).`);
+  }
+}
+
+
+
+
+// Клас Person з методами getFullName та getAge
+class Person {
+  constructor(firstName, lastName, birthYear) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.birthYear = birthYear;
+  }
+  
+  getFullName() {
+    return this.firstName + " " + this.lastName;
+  }
+  
+  getAge() {
+    let currentYear = new Date().getFullYear();
+    return currentYear - this.birthYear;
+  }
+}
+
+// Клас ObservedPerson, що наслідується від Person
+class ObservedPerson extends Person {
+  constructor(firstName, lastName, birthYear) {
+    super(firstName, lastName, birthYear);
+    this.fullNameCalls = 0; // Лічильник кількості викликів методу getFullName
+    this.ageCalls = 0; // Лічильник кількості викликів методу getAge
+  }
+
+  // Перевизначення методу getFullName з додаванням лічильника
+  getFullName() {
+    this.fullNameCalls++;
+    console.log(`Метод getFullName викликаний ${this.fullNameCalls} разів.`);
+    return super.getFullName();
+  }
+
+  // Перевизначення методу getAge з додаванням лічильника
+  getAge() {
+    this.ageCalls++;
+    console.log(`Метод getAge викликаний ${this.ageCalls} разів.`);
+    return super.getAge();
+  }
+}
+
+// Функція, що приймає екземпляр класу Person та повертає його екземпляр ObservedPerson
+function observePerson(person) {
+  return new ObservedPerson(person.firstName, person.lastName, person.birthYear);
+}
+
+// Створення екземпляру класу Person
+let person = new Person("John", "Doe", 1990);
+
+// Створення екземпляру класу ObservedPerson на основі екземпляру Person
+let observedPerson = observePerson(person);
+
+// Виклик методів getFullName та getAge та виведення кількості їх виклику
+console.log(observedPerson.getFullName()); // Виведе "Метод getFullName викликаний 1 разів." та поверне "John Doe"
+console.log(observedPerson.getAge()); // Виведе "Метод getAge викликаний 1 разів." та поверне вік особи, що залежить від поточного року.
+
+
+
+// Оголошення класу Shape
+class Shape {
+  constructor() {
+    if (new.target === Shape) {
+      throw new TypeError("Невдала спроба створення екземпляру абстрактного класу Shape.");
+    }
+  }
+
+  // Абстрактний метод для обчислення площі
+  getArea() {
+    throw new Error("Метод getArea повинен бути перевизначений в дочірньому класі.");
+  }
+
+  // Абстрактний метод для обчислення периметру
+  getPerimeter() {
+    throw new Error("Метод getPerimeter повинен бути перевизначений в дочірньому класі.");
+  }
+}
+
+// Приклад дочірнього класу, який наслідується від класу Shape
+class Rectangle extends Shape {
+  constructor(width, height) {
+    super();
+    this.width = width;
+    this.height = height;
+  }
+
+  // Реалізація методу для обчислення площі
+  getArea() {
+    return this.width * this.height;
+  }
+
+  // Реалізація методу для обчислення периметру
+  getPerimeter() {
+    return 2 * (this.width + this.height);
+  }
+}
+
+// Створення екземпляру класу Rectangle
+let rectangle = new Rectangle(5, 3);
+
+// Виклик методів getArea та getPerimeter та виведення результатів
+console.log("Площа прямокутника: " + rectangle.getArea()); // Виведе "Площа прямокутника: 15"
+console.log("Периметр прямокутника: " + rectangle.getPerimeter()); // Виведе "Периметр прямокутника: 16"
+
+
+
+// Оголошення класу Shape
+class Shape {
+  constructor() {
+    if (new.target === Shape) {
+      throw new TypeError("Невдала спроба створення екземпляру абстрактного класу Shape.");
+    }
+  }
+
+  // Абстрактний метод для обчислення площі
+  getArea() {
+    throw new Error("Метод getArea повинен бути перевизначений в дочірньому класі.");
+  }
+
+  // Абстрактний метод для обчислення периметру
+  getPerimeter() {
+    throw new Error("Метод getPerimeter повинен бути перевизначений в дочірньому класі.");
+  }
+}
+
+// Клас для квадрата
+class Square extends Shape {
+  constructor(side) {
+    super();
+    this.side = side;
+  }
+
+  // Реалізація методу для обчислення площі
+  getArea() {
+    return this.side * this.side;
+  }
+
+  // Реалізація методу для обчислення периметру
+  getPerimeter() {
+    return 4 * this.side;
+  }
+}
+
+// Клас для прямокутника
+class Rectangle extends Shape {
+  constructor(width, height) {
+    super();
+    this.width = width;
+    this.height = height;
+  }
+
+  // Реалізація методу для обчислення площі
+  getArea() {
+    return this.width * this.height;
+  }
+
+  // Реалізація методу для обчислення периметру
+  getPerimeter() {
+    return 2 * (this.width + this.height);
+  }
+}
+
+// Клас для кола
+class Circle extends Shape {
+  constructor(radius) {
+    super();
+    this.radius = radius;
+  }
+
+  // Реалізація методу для обчислення площі
+  getArea() {
+    return Math.PI * this.radius * this.radius;
+  }
+
+  // Реалізація методу для обчислення периметру
+  getPerimeter() {
+    return 2 * Math.PI * this.radius;
+  }
+}
+
+// Клас для трикутника
+class Triangle extends Shape {
+  constructor(side1, side2, side3) {
+    super();
+    this.side1 = side1;
+    this.side2 = side2;
+   
+
+
+
+
